@@ -1,0 +1,185 @@
+
+Gurobi 10.0.1 (win64, gurobi_cl) logging started Wed May 10 07:15:13 2023
+
+Set parameter Username
+Set parameter LogFile to value "gurobi.log"
+Using license file C:\Users\erikl\gurobi.lic
+
+Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (win64)
+Copyright (c) 2023, Gurobi Optimization, LLC
+
+Read LP format model from file E:\PGC\code\programacao-linear\main.lp
+Reading time = 0.00 seconds
+: 4 rows, 9 columns, 16 nonzeros
+
+CPU model: 11th Gen Intel(R) Core(TM) i5-11400F @ 2.60GHz, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+
+Optimize a model with 4 rows, 9 columns and 16 nonzeros
+Model fingerprint: 0x06e334a4
+Variable types: 4 continuous, 5 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [6e-02, 7e+00]
+  Objective range  [1e-02, 1e+00]
+  Bounds range     [5e+01, 1e+03]
+  RHS range        [0e+00, 0e+00]
+Found heuristic solution: objective -0.0000000
+Presolve removed 1 rows and 5 columns
+Presolve time: 0.01s
+Presolved: 3 rows, 4 columns, 9 nonzeros
+Variable types: 0 continuous, 4 integer (0 binary)
+Found heuristic solution: objective 26.1000000
+
+Root relaxation: objective 1.134615e+02, 2 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  113.46154    0    1   26.10000  113.46154   335%     -    0s
+H    0     0                     113.3000000  113.46154  0.14%     -    0s
+H    0     0                     113.4500000  113.46154  0.01%     -    0s
+     0     0  113.46154    0    1  113.45000  113.46154  0.01%     -    0s
+
+Explored 1 nodes (2 simplex iterations) in 0.03 seconds (0.00 work units)
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: 113.45 113.3 26.1 -0 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.134500000000e+02, best bound 1.134500000000e+02, gap 0.0000%
+
+Gurobi 10.0.1 (win64, gurobi_cl) logging started Wed May 10 07:24:54 2023
+
+Set parameter Username
+Set parameter LogFile to value "gurobi.log"
+Using license file C:\Users\erikl\gurobi.lic
+
+Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (win64)
+Copyright (c) 2023, Gurobi Optimization, LLC
+
+Error reading LP format file E:\PGC\code\programacao-linear\main.lp at line 2
+Malformed term in expression
+Neighboring tokens: " sum{i in 1..n, j in 1..n} d[i,j] * x[i,j] "
+
+
+Error 10012: Unable to read file
+
+
+Gurobi 10.0.1 (win64, gurobi_cl) logging started Wed May 10 07:25:31 2023
+
+Set parameter Username
+Set parameter LogFile to value "gurobi.log"
+Using license file C:\Users\erikl\gurobi.lic
+
+Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (win64)
+Copyright (c) 2023, Gurobi Optimization, LLC
+
+Error reading LP format file E:\PGC\code\programacao-linear\main.lp at line 2
+Malformed term in expression
+Neighboring tokens: " sum{i in 1..n, j in 1..n} d[i,j] * x[i,j] "
+
+
+Error 10012: Unable to read file
+
+
+Gurobi 10.0.1 (win64, gurobi_cl) logging started Wed May 10 07:27:29 2023
+
+Set parameter Username
+Set parameter LogFile to value "gurobi.log"
+Using license file C:\Users\erikl\gurobi.lic
+
+Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (win64)
+Copyright (c) 2023, Gurobi Optimization, LLC
+
+Error reading LP format file E:\PGC\code\programacao-linear\main.lp at line 2
+Malformed term in expression
+Neighboring tokens: " sum{i in 1..n, j in 1..n} d[i,j] * x[i,j] "
+
+
+Error 10012: Unable to read file
+
+
+Gurobi 10.0.1 (win64, gurobi_cl) logging started Wed May 10 07:37:45 2023
+
+Set parameter Username
+Set parameter LogFile to value "gurobi.log"
+Using license file C:\Users\erikl\gurobi.lic
+
+Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (win64)
+Copyright (c) 2023, Gurobi Optimization, LLC
+
+Error reading LP format file E:\PGC\code\programacao-linear\main.lp at line 2
+Malformed term in expression
+Neighboring tokens: " sum{i in 1..n, j in 1..n} d[i,j] * x[i,j] "
+
+
+Error 10012: Unable to read file
+
+
+Gurobi 10.0.1 (win64, gurobi_cl) logging started Wed May 10 12:32:02 2023
+
+Set parameter Username
+Set parameter LogFile to value "gurobi.log"
+Using license file C:\Users\erikl\gurobi.lic
+
+Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (win64)
+Copyright (c) 2023, Gurobi Optimization, LLC
+
+Error reading LP format file E:\PGC\code\programacao-linear\main.lp at line 6
+Malformed term in expression
+Neighboring tokens: " sum{i in 1..n, j in 1..n} c[i,j] * x[i,j] "
+
+
+Error 10012: Unable to read file
+
+
+Gurobi 10.0.1 (win64, gurobi_cl) logging started Wed May 10 12:32:04 2023
+
+Set parameter Username
+Set parameter LogFile to value "gurobi.log"
+Using license file C:\Users\erikl\gurobi.lic
+
+Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (win64)
+Copyright (c) 2023, Gurobi Optimization, LLC
+
+Error reading LP format file E:\PGC\code\programacao-linear\main.lp at line 6
+Malformed term in expression
+Neighboring tokens: " sum{i in 1..n, j in 1..n} c[i,j] * x[i,j] "
+
+
+Error 10012: Unable to read file
+
+
+Gurobi 10.0.1 (win64, gurobi_cl) logging started Wed May 10 13:07:08 2023
+
+Set parameter Username
+Set parameter LogFile to value "gurobi.log"
+Using license file C:\Users\erikl\gurobi.lic
+
+Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (win64)
+Copyright (c) 2023, Gurobi Optimization, LLC
+
+Error reading LP format file E:\PGC\code\programacao-linear\main.lp at line 6
+Malformed term in expression
+Neighboring tokens: " sum{i in 1..n, j in 1..n} c[i,j] * x[i,j] "
+
+
+Error 10012: Unable to read file
+
+
+Gurobi 10.0.1 (win64, gurobi_cl) logging started Wed May 10 13:07:13 2023
+
+Set parameter Username
+Set parameter LogFile to value "gurobi.log"
+Using license file C:\Users\erikl\gurobi.lic
+
+Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (win64)
+Copyright (c) 2023, Gurobi Optimization, LLC
+
+Error reading LP format file E:\PGC\code\programacao-linear\main.lp at line 6
+Malformed term in expression
+Neighboring tokens: " sum{i in 1..n, j in 1..n} c[i,j] * x[i,j] "
+
+
+Error 10012: Unable to read file
+

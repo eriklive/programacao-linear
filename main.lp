@@ -3,7 +3,7 @@
 \ subject to capacity and distance constraints
 
 Minimize
- obj: sum{i in 1..n, j in 1..n} c[i,j] * x[i,j]
+    sum{i in 1..n} sum{j in 1..n} c[i,j] * x[i,j]
 
 Subject To
  \ capacity constraint

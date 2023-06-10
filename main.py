@@ -5,8 +5,8 @@ rotas: list = []
 
 # Dados do problema
 n: int = 5 # número de clientes
-Q: int = 13 # capacidade do veículo
-q: list = [0, 4, 3, 3, 2]     # demandas dos clientes
+Q: int = 10 # capacidade do veículo
+q: list = [0, 4, 3, 2, 1]     # demandas dos clientes
 D: int = 10 # distancia máxima
 d: list = [
         [0, 3, 1, 5, 8],
@@ -16,7 +16,8 @@ d: list = [
         [8, 11, 2, 3, 0]
     ]   # matriz de distâncias
 k: int = 1 # número de veículos
-ORIGEM = 1
+ORIGEM = 0
+APOS_ORIGEM = 1
 
 
 def logarCargaDaViagem(destinos, listaDeCargas):
@@ -33,32 +34,32 @@ def acharRotaOtima(n: int, d: list, q: list, Q: int, D: int):
     x = modelo.addVars(n, n, vtype=GRB.BINARY, name='x')
     u = modelo.addVars(n, vtype=GRB.INTEGER, name='u')
 
-    funcaoObjetivo = gp.quicksum(d[i][j] * x[i,j] for i in range(n) for j in range(n))
+    funcaoObjetivo = gp.quicksum(d[i][j] * x[i,j] for i in range(ORIGEM, n) for j in range(ORIGEM, n))
 
     modelo.setObjective(funcaoObjetivo, GRB.MINIMIZE) # Kara 1
 
-    modelo.addConstr(gp.quicksum(x[0,i] for i in range(1, n)) == 1) # Kara 4
-    modelo.addConstr(gp.quicksum(x[i,0] for i in range(1, n)) == 1) # Kara 5
+    modelo.addConstr(gp.quicksum(x[0,i] for i in range(APOS_ORIGEM, n)) == 1) # Kara 4
+    modelo.addConstr(gp.quicksum(x[i,0] for i in range(APOS_ORIGEM, n)) == 1) # Kara 5
     
     
-    for i in range(1, n):    
-        modelo.addConstr(gp.quicksum(x[i,j] for j in range(n)) == 1) # Kara 3
-        modelo.addConstr(gp.quicksum(q[j] * x[i,j] for j in range(n)) <= Q) # NADA
-        modelo.addConstr(gp.quicksum(d[i][j] * x[i,j] for j in range(n)) <= D) # NADA
+    for i in range(APOS_ORIGEM, n):    
+        modelo.addConstr(gp.quicksum(x[i,j] for j in range(ORIGEM, n)) == 1) # Kara 3
+        modelo.addConstr(gp.quicksum(q[j] * x[i,j] for j in range(ORIGEM, n)) <= Q) # NADA
+        modelo.addConstr(gp.quicksum(d[i][j] * x[i,j] for j in range(ORIGEM, n)) <= D) # NADA
 
-        for j in range(1, n): # Kara Apendices
+        for j in range(APOS_ORIGEM, n): # Kara Apendices
             if q[i] + q[j] > Q:
                 modelo.addConstr(x[i,j] == 0  )
             if i == j:
                 modelo.addConstr(x[i,j] == 0 )
 
-    for j in range(1, n):    
-        modelo.addConstr(gp.quicksum(x[i,j] for i in range(n)) == 1) # Kara 2
+    for j in range(APOS_ORIGEM, n):    
+        modelo.addConstr(gp.quicksum(x[i,j] for i in range(ORIGEM, n)) == 1) # Kara 2
 
-    for i in range(1, n):    
-        modelo.addConstr(u[i] - gp.quicksum(q[j] * x[j,i] for j in range(2, n) if j != i) >= q[i] ) # Kara 9
+    for i in range(APOS_ORIGEM, n):    
+        modelo.addConstr(u[i] - gp.quicksum(q[j] * x[j,i] for j in range(APOS_ORIGEM, n) if j != i) >= q[i] ) # Kara 9
         modelo.addConstr(u[i] + (Q - q[i]) * x[1,i] <= Q) # Kara 10
-        for j in range(1, n):  
+        for j in range(APOS_ORIGEM, n):  
             if(i != j):
                 modelo.addConstr(u[i] - u[j] + Q * x[i, j] + (Q - q[i] - q[j]) * x[j,i] <= Q - q[j] ) # Kara 11
 

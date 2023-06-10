@@ -16,6 +16,7 @@ d: list = [
         [8, 11, 2, 3, 0]
     ]   # matriz de distâncias
 k: int = 1 # número de veículos
+ORIGEM = 1
 
 
 def logarCargaDaViagem(destinos, listaDeCargas):
@@ -27,7 +28,6 @@ def logarCargaDaViagem(destinos, listaDeCargas):
     print('Carga da viagem: %d, limite: %d' % (cargaDaViagem, Q))   
 
 def acharRotaOtima(n: int, d: list, q: list, Q: int, D: int):
-    # Definição do modelo
     modelo = gp.Model()
 
     x = modelo.addVars(n, n, vtype=GRB.BINARY, name='x')
@@ -35,37 +35,32 @@ def acharRotaOtima(n: int, d: list, q: list, Q: int, D: int):
 
     funcaoObjetivo = gp.quicksum(d[i][j] * x[i,j] for i in range(n) for j in range(n))
 
-    # modelo.params.LogToConsole = 0 # Comentar essa linha para retornar logs do Gurobi
-    modelo.setObjective(funcaoObjetivo, GRB.MINIMIZE)
+    modelo.setObjective(funcaoObjetivo, GRB.MINIMIZE) # Kara 1
 
-    modelo.addConstr(gp.quicksum(x[0,i] for i in range(1, n)) == 1)
-    modelo.addConstr(gp.quicksum(x[i,0] for i in range(1, n)) == 1)
-    # modelo.addConstr(gp.quicksum(x[1,i] for i in range(2, n)) <= k)
-    # modelo.addConstr(gp.quicksum(x[i,1] for i in range(2, n)) <= k)
+    modelo.addConstr(gp.quicksum(x[0,i] for i in range(1, n)) == 1) # Kara 4
+    modelo.addConstr(gp.quicksum(x[i,0] for i in range(1, n)) == 1) # Kara 5
+    
     
     for i in range(1, n):    
-        modelo.addConstr(gp.quicksum(x[i,j] for j in range(n)) == 1)
-        modelo.addConstr(gp.quicksum(q[j] * x[i,j] for j in range(n)) <= Q)
-        modelo.addConstr(gp.quicksum(d[i][j] * x[i,j] for j in range(n)) <= D)
+        modelo.addConstr(gp.quicksum(x[i,j] for j in range(n)) == 1) # Kara 3
+        modelo.addConstr(gp.quicksum(q[j] * x[i,j] for j in range(n)) <= Q) # NADA
+        modelo.addConstr(gp.quicksum(d[i][j] * x[i,j] for j in range(n)) <= D) # NADA
 
-        for j in range(1, n):
+        for j in range(1, n): # Kara Apendices
             if q[i] + q[j] > Q:
                 modelo.addConstr(x[i,j] == 0  )
             if i == j:
                 modelo.addConstr(x[i,j] == 0 )
 
     for j in range(1, n):    
-        modelo.addConstr(gp.quicksum(x[i,j] for i in range(n)) == 1)
+        modelo.addConstr(gp.quicksum(x[i,j] for i in range(n)) == 1) # Kara 2
 
-    # No modelo os somatórios começam em 2 (i de 2 a n e j de 2 a n);
-    # Se aplicar isso aqui, o modelo não funciona POIS O MODELO AQUI COMEÇA EM ZERO
-    # E O KARA COMEÇA EM 1
     for i in range(1, n):    
-        modelo.addConstr(u[i] - gp.quicksum(q[j] * x[j,i] for j in range(2, n) if j != i) >= q[i] ) # restrição de carga (inferior)
-        modelo.addConstr(u[i] + (Q - q[i]) * x[1,i] <= Q) # restricao de carga (superior)
+        modelo.addConstr(u[i] - gp.quicksum(q[j] * x[j,i] for j in range(2, n) if j != i) >= q[i] ) # Kara 9
+        modelo.addConstr(u[i] + (Q - q[i]) * x[1,i] <= Q) # Kara 10
         for j in range(1, n):  
             if(i != j):
-                modelo.addConstr(u[i] - u[j] + Q * x[i, j] + (Q - q[i] - q[j]) * x[j,i] <= Q - q[j] ) # Prevenção de sub-rota
+                modelo.addConstr(u[i] - u[j] + Q * x[i, j] + (Q - q[i] - q[j]) * x[j,i] <= Q - q[j] ) # Kara 11
 
     modelo.optimize()
     

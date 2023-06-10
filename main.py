@@ -6,7 +6,7 @@ rotas: list = []
 # Dados do problema
 n: int = 5 # número de clientes
 Q: int = 13 # capacidade do veículo
-q: list = [0, 3, 3, 3, 4]     # demandas dos clientes
+q: list = [0, 4, 3, 3, 2]     # demandas dos clientes
 D: int = 10 # distancia máxima
 d: list = [
         [0, 3, 1, 5, 8],
@@ -40,8 +40,8 @@ def acharRotaOtima(n: int, d: list, q: list, Q: int, D: int):
 
     modelo.addConstr(gp.quicksum(x[0,i] for i in range(1, n)) == 1)
     modelo.addConstr(gp.quicksum(x[i,0] for i in range(1, n)) == 1)
-    # modelo.addConstr(gp.quicksum(x[1,i] for i in range(2, n)) == k)
-    # modelo.addConstr(gp.quicksum(x[i,1] for i in range(2, n)) == k)
+    # modelo.addConstr(gp.quicksum(x[1,i] for i in range(2, n)) <= k)
+    # modelo.addConstr(gp.quicksum(x[i,1] for i in range(2, n)) <= k)
     
     for i in range(1, n):    
         modelo.addConstr(gp.quicksum(x[i,j] for j in range(n)) == 1)
@@ -57,19 +57,15 @@ def acharRotaOtima(n: int, d: list, q: list, Q: int, D: int):
     for j in range(1, n):    
         modelo.addConstr(gp.quicksum(x[i,j] for i in range(n)) == 1)
 
+    # No modelo os somatórios começam em 2 (i de 2 a n e j de 2 a n);
+    # Se aplicar isso aqui, o modelo não funciona POIS O MODELO AQUI COMEÇA EM ZERO
+    # E O KARA COMEÇA EM 1
     for i in range(1, n):    
         modelo.addConstr(u[i] - gp.quicksum(q[j] * x[j,i] for j in range(2, n) if j != i) >= q[i] ) # restrição de carga (inferior)
         modelo.addConstr(u[i] + (Q - q[i]) * x[1,i] <= Q) # restricao de carga (superior)
-
         for j in range(1, n):  
             if(i != j):
                 modelo.addConstr(u[i] - u[j] + Q * x[i, j] + (Q - q[i] - q[j]) * x[j,i] <= Q - q[j] ) # Prevenção de sub-rota
-        
-
-    # ===========================================================================================================
-    # Programa está solenemente ignorando essa restrição
-    # modelo.addConstrs(restricaoDeCarga) # restrição de carga
-    # ===========================================================================================================
 
     modelo.optimize()
     

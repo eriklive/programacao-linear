@@ -33,7 +33,7 @@ def acharRotaOtima(n: int, d: list, q: list, Q: int, D: int):
     x = modelo.addVars(n, n, vtype=GRB.BINARY, name='x')
     u = modelo.addVars(n, vtype=GRB.INTEGER, name='u')
     funcaoObjetivo = gp.quicksum(d[i][j] * x[i,j] for i in range(ORIGEM, n) for j in range(ORIGEM, n))
-    
+
     modelo.setObjective(funcaoObjetivo, GRB.MINIMIZE) # Kara 1
 
     for j in range(APOS_ORIGEM, n):    
@@ -42,8 +42,8 @@ def acharRotaOtima(n: int, d: list, q: list, Q: int, D: int):
     for i in range(APOS_ORIGEM, n):    
         modelo.addConstr(gp.quicksum(x[i,j] for j in range(ORIGEM, n)) == 1) # Kara 3
 
-    modelo.addConstr(gp.quicksum(x[0,i] for i in range(APOS_ORIGEM, n)) == 1) # Kara 4
-    modelo.addConstr(gp.quicksum(x[i,0] for i in range(APOS_ORIGEM, n)) == 1) # Kara 5
+    modelo.addConstr(gp.quicksum(x[0,i] for i in range(APOS_ORIGEM, n)) == k) # Kara 4
+    modelo.addConstr(gp.quicksum(x[i,0] for i in range(APOS_ORIGEM, n)) == k) # Kara 5
 
     for i in range(APOS_ORIGEM, n):    
         modelo.addConstr(u[i] - gp.quicksum(q[j] * x[j,i] for j in range(APOS_ORIGEM, n) if j != i) >= q[i] ) # Kara 9
